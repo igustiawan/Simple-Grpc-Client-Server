@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ojgPAOaRAqbR6YcMD2tnNHoFaSrk1U42Bf23TelzeJ4=",
+  "Source": "SimpleGrpc-Server",
+  "BasePath": "_content/SimpleGrpc-Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
