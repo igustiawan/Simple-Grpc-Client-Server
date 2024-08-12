@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\K22020\\Desktop\\Protobuf\\SimpleGrpc\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj": {}
+    "C:\\Project\\Protobuf\\Simple-Grpc-Client-Server\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\K22020\\Desktop\\Protobuf\\SimpleGrpc\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj": {
+    "C:\\Project\\Protobuf\\Simple-Grpc-Client-Server\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\K22020\\Desktop\\Protobuf\\SimpleGrpc\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj",
+        "projectUniqueName": "C:\\Project\\Protobuf\\Simple-Grpc-Client-Server\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj",
         "projectName": "SimpleGrpc-Client",
-        "projectPath": "C:\\Users\\K22020\\Desktop\\Protobuf\\SimpleGrpc\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj",
+        "projectPath": "C:\\Project\\Protobuf\\Simple-Grpc-Client-Server\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj",
         "packagesPath": "C:\\Users\\K22020\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\K22020\\Desktop\\Protobuf\\SimpleGrpc\\SimpleGrpc-Client\\obj\\",
+        "outputPath": "C:\\Project\\Protobuf\\Simple-Grpc-Client-Server\\SimpleGrpc-Client\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\K22020\\AppData\\Roaming\\NuGet\\NuGet.Config",

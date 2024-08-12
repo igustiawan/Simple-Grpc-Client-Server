@@ -52,6 +52,10 @@ namespace GrpcGreeter {
     static readonly grpc::Marshaller<global::GrpcGreeter.HelloRequest> __Marshaller_greet_HelloRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcGreeter.HelloRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::GrpcGreeter.HelloReply> __Marshaller_greet_HelloReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcGreeter.HelloReply.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::GrpcGreeter.SendMessageRequest> __Marshaller_greet_SendMessageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcGreeter.SendMessageRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::GrpcGreeter.GetMessagesRequest> __Marshaller_greet_GetMessagesRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcGreeter.GetMessagesRequest.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::GrpcGreeter.HelloRequest, global::GrpcGreeter.HelloReply> __Method_SayHello = new grpc::Method<global::GrpcGreeter.HelloRequest, global::GrpcGreeter.HelloReply>(
@@ -59,6 +63,22 @@ namespace GrpcGreeter {
         __ServiceName,
         "SayHello",
         __Marshaller_greet_HelloRequest,
+        __Marshaller_greet_HelloReply);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::GrpcGreeter.SendMessageRequest, global::GrpcGreeter.HelloReply> __Method_SendMessageToClient = new grpc::Method<global::GrpcGreeter.SendMessageRequest, global::GrpcGreeter.HelloReply>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "SendMessageToClient",
+        __Marshaller_greet_SendMessageRequest,
+        __Marshaller_greet_HelloReply);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::GrpcGreeter.GetMessagesRequest, global::GrpcGreeter.HelloReply> __Method_GetMessages = new grpc::Method<global::GrpcGreeter.GetMessagesRequest, global::GrpcGreeter.HelloReply>(
+        grpc::MethodType.ServerStreaming,
+        __ServiceName,
+        "GetMessages",
+        __Marshaller_greet_GetMessagesRequest,
         __Marshaller_greet_HelloReply);
 
     /// <summary>Service descriptor</summary>
@@ -71,16 +91,20 @@ namespace GrpcGreeter {
     [grpc::BindServiceMethod(typeof(Greeter), "BindService")]
     public abstract partial class GreeterBase
     {
-      /// <summary>
-      /// Sends a greeting
-      ///rpc SayHello (HelloRequest) returns (HelloReply);
-      /// </summary>
-      /// <param name="requestStream">Used for reading requests from the client.</param>
-      /// <param name="responseStream">Used for sending responses back to the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>A task indicating completion of the handler.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task SayHello(grpc::IAsyncStreamReader<global::GrpcGreeter.HelloRequest> requestStream, grpc::IServerStreamWriter<global::GrpcGreeter.HelloReply> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::GrpcGreeter.HelloReply> SendMessageToClient(global::GrpcGreeter.SendMessageRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task GetMessages(global::GrpcGreeter.GetMessagesRequest request, grpc::IServerStreamWriter<global::GrpcGreeter.HelloReply> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -93,7 +117,9 @@ namespace GrpcGreeter {
     public static grpc::ServerServiceDefinition BindService(GreeterBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_SayHello, serviceImpl.SayHello).Build();
+          .AddMethod(__Method_SayHello, serviceImpl.SayHello)
+          .AddMethod(__Method_SendMessageToClient, serviceImpl.SendMessageToClient)
+          .AddMethod(__Method_GetMessages, serviceImpl.GetMessages).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -104,6 +130,8 @@ namespace GrpcGreeter {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, GreeterBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_SayHello, serviceImpl == null ? null : new grpc::DuplexStreamingServerMethod<global::GrpcGreeter.HelloRequest, global::GrpcGreeter.HelloReply>(serviceImpl.SayHello));
+      serviceBinder.AddMethod(__Method_SendMessageToClient, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GrpcGreeter.SendMessageRequest, global::GrpcGreeter.HelloReply>(serviceImpl.SendMessageToClient));
+      serviceBinder.AddMethod(__Method_GetMessages, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::GrpcGreeter.GetMessagesRequest, global::GrpcGreeter.HelloReply>(serviceImpl.GetMessages));
     }
 
   }

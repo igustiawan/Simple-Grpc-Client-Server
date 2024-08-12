@@ -15,15 +15,6 @@ namespace GrpcGreeterClient
         #region snippet
         static async Task Main(string[] args)
         {
-            // The port number(5001) must match the port of the gRPC server.
-            //using var channel = GrpcChannel.ForAddress("https://localhost:5001");
-            //var client = new Greeter.GreeterClient(channel);
-            //var reply = await client.SayHelloAsync(
-            //                  new HelloRequest { Name = "GreeterClient" });
-            //Console.WriteLine("Greeting: " + reply.Message);
-            //Console.WriteLine("Press any key to exit...");
-            //Console.ReadKey();
-
             var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
@@ -33,43 +24,77 @@ namespace GrpcGreeterClient
             ClientId = configuration["ClientSettings:ClientId"];
 
 
-            using var channel = GrpcChannel.ForAddress("https://localhost:5001");
+            using var channel = GrpcChannel.ForAddress("https://localhost:7053/");
             var client = new Greeter.GreeterClient(channel);
 
-            using var streamingCall = client.SayHello();
-
+            //using var streamingCall = client.SayHello();
+            var metadata = new Grpc.Core.Metadata { { "client-id", ClientId } };
+            using var streamingCall = client.SayHello(headers: metadata);
+    
             // Task to read responses from the server
             var responseTask = Task.Run(async () =>
             {
                 await foreach (var reply in streamingCall.ResponseStream.ReadAllAsync())
                 {
-                    Console.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] [{ClientId}] Received from server: " + reply.Message);
-                    Console.Write("Enter your name (or press enter to exit): ");
+                    //Console.WriteLine();
+                    //Console.WriteLine($"From : {reply.Message} [{reply.Timestamp}]");
+                    //Console.Write("Enter your message (or press enter to exit): ");
                 }
             });
 
-            // Display the initial prompt once
-            Console.Write("Enter your name (or press enter to exit): ");
-
-            // Send multiple requests to the server
             while (true)
             {
-                var name = Console.ReadLine();
-                if (string.IsNullOrEmpty(name))
+                Console.WriteLine("\nSelect an option:");
+                Console.WriteLine("1. Send message to client");
+                Console.WriteLine("2. View message inbox");
+                Console.WriteLine("3. Exit");
+                Console.Write("Your choice: ");
+
+                var choice = Console.ReadLine();
+
+                switch (choice)
                 {
-                    Console.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] [{ClientId}] Exiting...");
-                    break;
+                    case "1":
+                        Console.Write("Enter recipient client ID: ");
+                        var recipientClientId = Console.ReadLine();
+
+                        Console.Write("Enter your message: ");
+                        var message = Console.ReadLine();
+
+                        if (!string.IsNullOrEmpty(recipientClientId) && !string.IsNullOrEmpty(message))
+                        {
+                            var sendMessageRequest = new SendMessageRequest
+                            {
+                                RecipientClientId = recipientClientId,
+                                SenderClientId = ClientId, // Set SenderClientId
+                                Message = message
+                            };
+
+                            var sendMessageResponse = await client.SendMessageToClientAsync(sendMessageRequest);
+                            Console.WriteLine($"Sent to {recipientClientId}: {sendMessageResponse.Message}");
+                        }
+                        break;
+
+                    case "2":
+                        var getMessagesRequest = new GetMessagesRequest { ClientId = ClientId };
+                        var call = client.GetMessages(getMessagesRequest);
+                        await foreach (var reply in call.ResponseStream.ReadAllAsync())
+                        {
+                            Console.WriteLine($"[{reply.Timestamp}] [{reply.SenderClientId}]: {reply.Message}"); // Menampilkan ID pengirim
+                        }
+                        break;
+
+                    case "3":
+                        await streamingCall.RequestStream.CompleteAsync();
+                        await responseTask;
+                        Environment.Exit(0);
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice, please select again.");
+                        break;
                 }
-
-                Console.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] [{ClientId}] Sending to server: " + name);
-                await streamingCall.RequestStream.WriteAsync(new HelloRequest { Name = name, ClientId = ClientId });
             }
-
-            await streamingCall.RequestStream.CompleteAsync();
-            await responseTask;
-
-            Environment.Exit(0);
-
         }
         #endregion
     }

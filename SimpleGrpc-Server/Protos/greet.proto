@@ -6,18 +6,31 @@ package greet;
 
 // The greeting service definition.
 service Greeter {
-  // Sends a greeting
-  //rpc SayHello (HelloRequest) returns (HelloReply);
-  rpc SayHello (stream HelloRequest) returns (stream HelloReply);
+  rpc SayHello(stream HelloRequest) returns (stream HelloReply);
+  rpc SendMessageToClient(SendMessageRequest) returns (HelloReply);
+  rpc GetMessages(GetMessagesRequest) returns (stream HelloReply);
 }
 
 // The request message containing the user's name.
 message HelloRequest {
-  string name = 1;
-  string clientId = 2; // Identifikasi client
+	string clientId = 1;
+	string message = 2;
+	string timestamp = 3;
 }
 
 // The response message containing the greetings.
 message HelloReply {
-  string message = 1;
+	string SenderClientId = 1; // Add SenderClientId
+	string message = 2;
+	string timestamp = 3;
+}
+
+message SendMessageRequest {
+	string RecipientClientId = 1;
+	string SenderClientId = 2; // Add SenderClientId
+	string Message = 3;
+}
+
+message GetMessagesRequest {
+  string clientId = 1;
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8kUQ+O/7+/7EtaCdUiDtcr7KRJj7w/o/Q7tKWwJGkbAgcet2P1s1ipQeaq8SeJjDnphk2HLyD2ae9ajlH40XLA==",
+  "dgSpecHash": "f0vgy5uGIzz7qcffJqsygwLWQgW2LwHs9lmay81SiP4WhhLpFDVDG7J75ycK0d36tM37DC1xtgsldESA7UQFdQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\K22020\\Desktop\\Protobuf\\SimpleGrpc\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj",
+  "projectFilePath": "C:\\Project\\Protobuf\\Simple-Grpc-Client-Server\\SimpleGrpc-Client\\SimpleGrpc-Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\K22020\\.nuget\\packages\\google.protobuf\\3.27.2\\google.protobuf.3.27.2.nupkg.sha512",
     "C:\\Users\\K22020\\.nuget\\packages\\grpc.aspnetcore\\2.63.0\\grpc.aspnetcore.2.63.0.nupkg.sha512",
